@@ -1,0 +1,16 @@
+#!/usr/bin/env perl
+
+use warnings;
+use strict;
+use Getopt::Std;
+use Zacro;
+
+our %opts = ();
+getopts( "bp", \%opts );
+
+my $addr = defined $opts{ b } ? $opts{ b } : 0 ;
+my $port = defined $opts{ p } ? $opts{ p } : 11222;
+
+my $z = Zacro->new( open => [ [ $addr, $port ] ] );
+$z->run;
+
