@@ -83,6 +83,10 @@ Zacro - a job queuing daemon with memcached protocol
   my $m = Cache::Memcached::Fast->new( {...} );
   $m->set( 'my_queue', [ 'Tempula-Soba', 'Oyako-Don', 'Miso-Soup' ] );
 
+=head1 USAGE of zacrod
+
+ $ zacrod [-b bind_address (default=0.0.0.0)] [-p port(default=11222)]
+
 =head1 AUTHOR
 
 azuma satoshi E<lt>ytnobody@gmail.comE<gt>
