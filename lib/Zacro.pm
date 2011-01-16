@@ -63,14 +63,14 @@ __END__
 
 =head1 NAME
 
-Zacro - Job queuing daemon with memcached protocol
+Zacro - a job queuing daemon with memcached protocol
 
 =head1 SYNOPSIS
 
   ### in your shell
   $ zacrod
   
-  ### worker
+  ### your worker
   use Cache::Memcached::Fast;
   my $m = Cache::Memcached::Fast->new( {...} );
   while ( 1 ) {
@@ -78,20 +78,14 @@ Zacro - Job queuing daemon with memcached protocol
       sub { ... } if defined $param;
   }
   
-  ### client
+  ### your client
   use Cache::Memcached::Fast;
   my $m = Cache::Memcached::Fast->new( {...} );
   $m->set( 'my_queue', [ 'Tempula-Soba', 'Oyako-Don', 'Miso-Soup' ] );
 
-=head1 DESCRIPTION
-
-Zacro is a job queueing daemon.
-
 =head1 AUTHOR
 
-ytnobody E<lt>ytnobody@gmail.comE<gt>
-
-=head1 SEE ALSO
+azuma satoshi E<lt>ytnobody@gmail.comE<gt>
 
 =head1 LICENSE
 

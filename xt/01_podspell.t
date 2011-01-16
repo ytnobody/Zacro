@@ -6,6 +6,7 @@ $ENV{LANG} = 'C';
 all_pod_files_spelling_ok('lib');
 __DATA__
 ytnobody
+azuma satoshi
 ytnobody@gmail.com
 Zacro
 memcached

@@ -11,6 +11,7 @@ tests 't/*.t';
 author_tests 'xt';
 
 test_requires 'Test::More';
+test_requires 'AnyEvent::Memcached';
 auto_set_repository;
 auto_include;
 WriteAll;
