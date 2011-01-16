@@ -12,6 +12,9 @@ author_tests 'xt';
 
 test_requires 'Test::More';
 test_requires 'AnyEvent::Memcached';
+
+install_script 'bin/zacrod';
+
 auto_set_repository;
 auto_include;
 WriteAll;

@@ -5,8 +5,22 @@ use strict;
 use Getopt::Std;
 use Zacro;
 
+our $VERSION = $Zacro::VERSION;
 our %opts = ();
 getopts( "bp", \%opts );
+
+sub VERSION_MESSAGE {
+    print <<EOF;
+zacrod version $VERSION
+
+Usage
+ zacrod [-b bind_address (default=0.0.0.0)] [-p port(default=11222)]
+
+You can see more information with "perldoc Zacro". 
+
+EOF
+    exit;
+}
 
 my $addr = defined $opts{ b } ? $opts{ b } : 0 ;
 my $port = defined $opts{ p } ? $opts{ p } : 11222;
