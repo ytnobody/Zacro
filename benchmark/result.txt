@@ -1,0 +1,29 @@
+[yt@nethard Zacro]$ perl ./benchmark/bench.pl 
+Benchmark: timing 100000 iterations of Gearman, Zacro...
+   Gearman: 52 27.51 3.42 0 0 100000 set @ 3233.11/s (n=100000)
+     Zacro: 13 1.03 1.24 0 0 100000 set @ 44052.86/s (n=100000)
+           Rate Gearman   Zacro
+Gearman  3233/s      --    -93%
+Zacro   44053/s   1263%      --
+$VAR1 = [
+          bless( [
+                   'max',
+                   '12.6957490444183',
+                   'min',
+                   '0.043057918548584',
+                   'average',
+                   '6.17617448568342',
+                   'total',
+                   '506.957278966902'
+                 ], 'MyBench::Zacro' ),
+          bless( [
+                   'max',
+                   '64.5056960582733',
+                   'min',
+                   '0.00426197052001953',
+                   'average',
+                   '32.3016977689482',
+                   'total',
+                   '12791.4723165035'
+                 ], 'MyBench::Gearman' )
+        ];
