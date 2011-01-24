@@ -7,7 +7,7 @@ use Zacro;
 
 our $VERSION = $Zacro::VERSION;
 our %opts = ();
-getopts( "bp", \%opts );
+getopts( "b:p:", \%opts );
 
 sub VERSION_MESSAGE {
     print <<EOF;

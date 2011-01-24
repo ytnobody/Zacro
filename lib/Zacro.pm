@@ -65,27 +65,72 @@ __END__
 
 Zacro - a job queuing daemon with memcached protocol
 
+=head1 INSTALL
+
+  $ git clone git://github.com/ytnobody/Zacro.git
+  $ cpanm ./Zacro
+
 =head1 SYNOPSIS
 
   ### in your shell
   $ zacrod
   
-  ### your worker
+  ### your worker ( uses so much cpu resource )
   use Cache::Memcached::Fast;
-  my $m = Cache::Memcached::Fast->new( {...} );
+  
+  sub my_task { ... }
+  
+  my $m = Cache::Memcached::Fast->new( { ... } );
   while ( 1 ) {
       my $param = $m->get( 'my_queue' );
-      sub { ... } if defined $param;
+      my_task() if defined $param;
+      ### if you want to thrifty cpu resource
+      # sleep 1;
   }
-  
+
   ### your client
   use Cache::Memcached::Fast;
   my $m = Cache::Memcached::Fast->new( {...} );
   $m->set( 'my_queue', [ 'Tempula-Soba', 'Oyako-Don', 'Miso-Soup' ] );
 
-=head1 USAGE of zacrod
+=head1 usage of zacrod
 
  $ zacrod [-b bind_address (default=0.0.0.0)] [-p port(default=11222)]
+
+=head1 comparision with gearman
+
+=head2 blocking when fetching queue
+
+Look at these codes.
+
+  ### worker for gearman
+  use Gearman::Worker;
+  my $worker = Gearman::Worker->new;
+  $worker->job_servers( qw/ 127.0.0.1 / );
+  $worker->register_function( foo => sub { ... } );
+  $worker->work; ### no "while 1"
+
+This is worker for gearman. It waits job-queue, and processes only once when found it.
+In brief, if job-queue isn't came, this worker waits indefinitely.
+
+Look at another codes.
+
+  ### worker for Zacro
+  use Cache::Memcached::Fast;
+  sub my_task { ... }
+  my $m = Cache::Memcaced::Fast->new( { ... } );
+  my $queue = $m->get( 'job_queue' );
+  my_task() if defined $queue;
+
+This code finishes like lightning. Because, Cache::Memcached::Fast->get is *NONBLOCKING*.
+
+=head2 job queueing on foreground
+
+Gearman::Client contains do_task() method. It dispatches a task and waits on the results.
+
+But, Zacro not contains such anything.
+
+=head2 performance
 
 =head1 AUTHOR
 

@@ -1,27 +1,73 @@
-This is Perl module Zacro.
+NAME
+    Zacro - a job queuing daemon with memcached protocol
 
-INSTALLATION
+INSTALL
+      $ git clone git://github.com/ytnobody/Zacro.git
+      $ cpanm ./Zacro
 
-Zacro installation is straightforward. If your CPAN shell is set up,
-you should just be able to do
+SYNOPSIS
+      ### in your shell
+      $ zacrod
+  
+      ### your worker ( uses so much cpu resource )
+      use Cache::Memcached::Fast;
+  
+      sub my_task { ... }
+  
+      my $m = Cache::Memcached::Fast->new( { ... } );
+      while ( 1 ) {
+          my $param = $m->get( 'my_queue' );
+          my_task() if defined $param;
+          ### if you want to thrifty cpu resource
+          # sleep 1;
+      }
 
-    % cpan Zacro
+      ### your client
+      use Cache::Memcached::Fast;
+      my $m = Cache::Memcached::Fast->new( {...} );
+      $m->set( 'my_queue', [ 'Tempula-Soba', 'Oyako-Don', 'Miso-Soup' ] );
 
-Download it, unpack it, then build it as per the usual:
+usage of zacrod
+     $ zacrod [-b bind_address (default=0.0.0.0)] [-p port(default=11222)]
 
-    % perl Makefile.PL
-    % make && make test
+comparision with gearman
+  blocking when fetching queue
+    Look at these codes.
 
-Then install it:
+      ### worker for gearman
+      use Gearman::Worker;
+      my $worker = Gearman::Worker->new;
+      $worker->job_servers( qw/ 127.0.0.1 / );
+      $worker->register_function( foo => sub { ... } );
+      $worker->work; ### no "while 1"
 
-    % make install
+    This is worker for gearman. It waits job-queue, and processes only once
+    when found it. In brief, if job-queue isn't came, this worker waits
+    indefinitely.
 
-DOCUMENTATION
+    Look at another codes.
 
-Zacro documentation is available as in POD. So you can do:
+      ### worker for Zacro
+      use Cache::Memcached::Fast;
+      sub my_task { ... }
+      my $m = Cache::Memcaced::Fast->new( { ... } );
+      my $queue = $m->get( 'job_queue' );
+      my_task() if defined $queue;
 
-    % perldoc Zacro
+    This code finishes like lightning. Because, Cache::Memcached::Fast->get
+    is *NONBLOCKING*.
 
-to read the documentation online with your favorite pager.
+  job queueing on foreground
+    Gearman::Client contains do_task() method. It dispatches a task and
+    waits on the results.
 
-ytnobody
+    But, Zacro not contains such anything.
+
+  performance
+AUTHOR
+    azuma satoshi <ytnobody@gmail.com>
+
+LICENSE
+    This library is free software; you can redistribute it and/or modify it
+    under the same terms as Perl itself.
+
