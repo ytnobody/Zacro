@@ -4,7 +4,6 @@ use warnings;
 our $VERSION = '0.01';
 
 use parent qw/ Memcached::Server /;
-use SUPER;
 use AnyEvent;
 
 our $queue = {};

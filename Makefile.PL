@@ -4,7 +4,6 @@ all_from 'lib/Zacro.pm';
 
 requires 'parent';
 requires 'Memcached::Server';
-requires 'SUPER';
 requires 'AnyEvent';
 
 tests 't/*.t';
