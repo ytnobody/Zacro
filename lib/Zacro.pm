@@ -7,19 +7,19 @@ use parent qw/ Memcached::Server /;
 use AnyEvent;
 
 our $queue = {};
-our %PARAMS = (
-    no_extra => 1,
-    cmd => {
-        set => \&set,
-        get => \&get,
-        delete => sub { shift->(1) },
-        flush_all => \&flush_all,
-    },
-);
 
 sub new {
     my $class = shift;
-    my $self = $class->SUPER::new( %PARAMS, @_ );
+    my $self = $class->SUPER::new( 
+        no_extra => 1,
+        cmd => {
+            set => \&set,
+            get => \&get,
+            delete => sub { shift->(1) },
+            flush_all => \&flush_all,
+        },
+        @_ 
+    );
     return $self;
 }
 

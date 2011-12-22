@@ -10,7 +10,10 @@ tests 't/*.t';
 author_tests 'xt';
 
 test_requires 'Test::More';
+test_requires 'Test::TCP';
 test_requires 'AnyEvent::Memcached';
+test_requires 'Cache::Memcached::Fast';
+test_requires 'Proc::Simple';
 
 install_script 'bin/zacrod';
 
