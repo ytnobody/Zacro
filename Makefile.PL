@@ -14,6 +14,7 @@ test_requires 'Test::TCP';
 test_requires 'AnyEvent::Memcached';
 test_requires 'Cache::Memcached::Fast';
 test_requires 'Proc::Simple';
+test_requires 'Guard';
 
 install_script 'bin/zacrod';
 
