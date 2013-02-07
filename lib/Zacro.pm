@@ -96,7 +96,7 @@ Zacro - a job queuing daemon with memcached protocol
 
  $ zacrod [-b bind_address (default=0.0.0.0)] [-p port(default=11222)]
 
-=head1 comparision with gearman
+=head1 comparison with gearman
 
 =head2 blocking when fetching queue
 
@@ -123,7 +123,7 @@ Look at another codes.
 
 This code finishes like lightning. Because, Cache::Memcached::Fast->get is *NONBLOCKING*.
 
-=head2 job queueing on foreground
+=head2 job queuing on foreground
 
 Gearman::Client contains do_task() method. It dispatches a task and waits on the results.
 
@@ -131,7 +131,7 @@ But, Zacro not contains such anything.
 
 =head2 performance
 
-Following is performance of setting job (comparision with Gearman).
+Following is performance of setting job (comparison with Gearman).
 
  Benchmark: timing 100000 iterations of Gearman, Zacro...
     Gearman: 52 27.51 3.42 0 0 100000 set @ 3233.11/s (n=100000)
@@ -140,7 +140,7 @@ Following is performance of setting job (comparision with Gearman).
  Gearman  3233/s      --    -93%
  Zacro   44053/s   1263%      --
 
-And, Following are elapse time that's beggining job from setting job.
+And, Following are elapse time that's beginning job from setting job.
 
  $VAR1 = [
            bless( [

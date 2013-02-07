@@ -10,3 +10,7 @@ azuma satoshi
 ytnobody@gmail.com
 Zacro
 memcached
+Gearman
+gearman
+dir
+zacrod
